@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Medium Sociedad Creativa</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Raleway:wght@300;400;500&display=swap');
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --gold: #C9A84C;
+    --gold-light: #E8D5A3;
+    --gold-dark: #8B6914;
+    --noir: #0D0D0D;
+    --noir-soft: #1A1A1A;
+    --noir-mid: #2C2C2C;
+    --cream: #F5F0E8;
+    --cream-soft: #EDE8DE;
+    --text-on-dark: #F0E9D6;
+  }
+
+  .page {
+    background: var(--noir);
+    color: var(--text-on-dark);
+    font-family: 'Raleway', sans-serif;
+    font-weight: 300;
+    width: 100%;
+    max-width: 420px;
+    margin: 0 auto;
+  }
+
+  /* NAV */
+  .nav {
+    background: var(--noir);
+    border-bottom: 0.5px solid var(--gold-dark);
+    padding: 14px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .nav-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 25px;
+    font-weight: 600;
+    letter-spacing: 3px;
+    color: var(--gold);
+    text-transform: uppercase;
+  }
+  .nav-logo span {
+    font-weight: 300;
+    font-style: italic;
+    color: var(--gold-light);
+    font-size: 18px;
+    display: block;
+    letter-spacing: 2px;
+    margin-top: -2px;
+  }
+  .nav-icons {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+  }
+  .nav-icons i {
+    font-size: 18px;
+    color: var(--gold);
+  }
+
+  /* HERO — mobile-first: vertical, sin depender de imagen de fondo */
+  .hero {
+    background: var(--noir-soft);
+    min-height: 380px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 48px 28px 40px;
+    border-bottom: 1px solid var(--gold-dark);
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-ornament {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    opacity: 0.04;
+    background: repeating-linear-gradient(
+      45deg,
+      var(--gold),
+      var(--gold) 1px,
+      transparent 1px,
+      transparent 40px
+    );
+  }
+  .hero-badge {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 4px;
+    color: var(--gold);
+    text-transform: uppercase;
+    border: 0.5px solid var(--gold-dark);
+    padding: 5px 16px;
+    margin-bottom: 24px;
+    display: inline-block;
+  }
+  .hero-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 42px;
+    font-weight: 300;
+    line-height: 1.15;
+    color: var(--text-on-dark);
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+  }
+  .hero-title em {
+    font-style: italic;
+    color: var(--gold);
+  }
+  .hero-subtitle {
+    font-size: 12px;
+    letter-spacing: 3px;
+    color: var(--gold-light);
+    text-transform: uppercase;
+    margin-bottom: 28px;
+    opacity: 0.8;
+  }
+  .hero-divider {
+    width: 48px;
+    height: 0.5px;
+    background: var(--gold);
+    margin: 0 auto 28px;
+  }
+  .hero-desc {
+    font-size: 13px;
+    line-height: 1.8;
+    color: #B8A98A;
+    max-width: 280px;
+    margin: 0 auto 32px;
+  }
+  .hero-cta {
+    background: transparent;
+    border: 1px solid var(--gold);
+    color: var(--gold);
+    font-family: 'Raleway', sans-serif;
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    padding: 12px 32px;
+    cursor: pointer;
+    transition: background 0.3s, color 0.3s;
+  }
+  .hero-cta:hover { background: var(--gold); color: var(--noir); }
+
+  /* SECTION LABEL */
+  .section-label {
+    text-align: center;
+    padding: 36px 20px 24px;
+  }
+  .section-label h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 26px;
+    font-weight: 300;
+    color: var(--text-on-dark);
+    letter-spacing: 2px;
+  }
+  .section-label h2 em {
+    font-style: italic;
+    color: var(--gold);
+  }
+  .section-label .line {
+    width: 32px;
+    height: 0.5px;
+    background: var(--gold);
+    margin: 10px auto 0;
+  }
+
+  /* CATALOGO */
+  .catalog {
+    padding: 0 16px 32px;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+  }
+  .product-card {
+    background: var(--noir-soft);
+    border: 0.5px solid var(--noir-mid);
+    border-radius: 2px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: border-color 0.2s;
+  }
+  .product-card:hover { border-color: var(--gold-dark); }
+  .product-img {
+    width: 100%;
+    aspect-ratio: 1;
+    background: var(--noir-mid);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 6px;
+    border-bottom: 0.5px solid #222;
+  }
+  .product-img i { font-size: 32px; color: var(--gold-dark); }
+  .product-img .inspired {
+    font-size: 9px;
+    letter-spacing: 2px;
+    color: #555;
+    text-transform: uppercase;
+  }
+  .product-info {
+    padding: 12px;
+  }
+  .product-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 15px;
+    font-weight: 400;
+    color: var(--text-on-dark);
+    margin-bottom: 2px;
+  }
+  .product-ref {
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    color: var(--gold-dark);
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .product-price {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--gold);
+  }
+
+  /* RESEÑAS */
+  .reviews {
+    background: var(--noir-soft);
+    border-top: 0.5px solid var(--noir-mid);
+    border-bottom: 0.5px solid var(--noir-mid);
+    padding: 0 16px 28px;
+  }
+  .review-card {
+    background: var(--noir);
+    border: 0.5px solid var(--noir-mid);
+    border-radius: 2px;
+    padding: 16px;
+    margin-bottom: 10px;
+  }
+  .review-card:last-child { margin-bottom: 0; }
+  .review-stars {
+    color: var(--gold);
+    font-size: 12px;
+    letter-spacing: 2px;
+    margin-bottom: 8px;
+  }
+  .review-text {
+    font-size: 12px;
+    line-height: 1.7;
+    color: #A09070;
+    margin-bottom: 10px;
+    font-style: italic;
+  }
+  .review-author {
+    font-size: 11px;
+    letter-spacing: 2px;
+    color: var(--gold-dark);
+    text-transform: uppercase;
+  }
+
+  /* GALERIA */
+  .gallery {
+    padding: 0 16px 32px;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+  }
+  .gallery-item {
+    aspect-ratio: 1;
+    background: var(--noir-soft);
+    border: 0.5px solid var(--noir-mid);
+    border-radius: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 6px;
+    cursor: pointer;
+    transition: border-color 0.2s;
+  }
+  .gallery-item:hover { border-color: var(--gold-dark); }
+  .gallery-item.tall { grid-row: span 1; }
+  .gallery-item i { font-size: 24px; color: var(--gold-dark); }
+  .gallery-item span { font-size: 9px; letter-spacing: 2px; color: #444; text-transform: uppercase; }
+
+  /* WHATSAPP CTA */
+  .contact-section {
+    padding: 36px 20px;
+    text-align: center;
+    border-top: 0.5px solid var(--noir-mid);
+  }
+  .contact-note {
+    font-size: 12px;
+    letter-spacing: 2px;
+    color: var(--gold-dark);
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  .contact-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    font-weight: 300;
+    color: var(--text-on-dark);
+    margin-bottom: 6px;
+    line-height: 1.3;
+  }
+  .contact-sub {
+    font-size: 12px;
+    color: #706050;
+    margin-bottom: 24px;
+    line-height: 1.7;
+  }
+  .wa-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: #1A3A1A;
+    border: 0.5px solid #2D5A2D;
+    color: #5DB85D;
+    font-family: 'Raleway', sans-serif;
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    padding: 14px 28px;
+    cursor: pointer;
+    border-radius: 1px;
+    transition: background 0.2s;
+  }
+  .wa-button:hover { background: #1F4A1F; }
+  .wa-button i { font-size: 16px; }
+
+  /* FOOTER */
+  .footer {
+    background: var(--noir-soft);
+    border-top: 0.5px solid var(--noir-mid);
+    padding: 24px 20px;
+    text-align: center;
+  }
+  .footer-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 16px;
+    letter-spacing: 4px;
+    color: var(--gold-dark);
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .footer-links {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-bottom: 16px;
+  }
+  .footer-links a {
+    font-size: 10px;
+    letter-spacing: 2px;
+    color: #555;
+    text-transform: uppercase;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  .footer-copy {
+    font-size: 10px;
+    color: #333;
+    letter-spacing: 1px;
+  }
+</style>
+
+
+
+<h2 class="sr-only" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);">Sintorina — Fanpage de perfumes de imitación, diseño elegante móvil</h2>
+</head>
+<body>
+<div class="page">
+
+  <!-- NAV -->
+  <nav class="nav">
+    <div class="nav-logo">
+      PERFUMES DE IMITACIÓN
+      <span>KIKEF PERFUMES</span>
+    </div>
+    <div class="nav-icons">
+      <i class="ti ti-search" aria-hidden="true"></i>
+      <i class="ti ti-message-circle" aria-hidden="true"></i>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-ornament"></div>
+    <div class="hero-badge">Colección</div>
+    <h1 class="hero-title">Fragancia que <br>te <em> acompaña</em></h1>
+    <div class="hero-subtitle">· El arma emocional de ocasión ·</div>
+    <div class="hero-subtitle">· Mérida ·</div>
+    <div class="hero-divider"></div>
+    <p class="hero-desc">Réplicas de alta fidelidad de las fragancias más icónicas del mundo. La misma      experiencia, sin el precio de la etiqueta.</p>
+<div class="hero-divider"></div>
+    <p class="hero-desc">· Excelente duración · Aroma Elegante · Atención Personalizada · </p>
+
+  </section>
+
+  <!-- CATÁLOGO -->
+  <div class="section-label">
+    <h2><em>Catálogo</em> Preferido</h2>
+    <div class="line"></div>
+  </div>
+
+  <div class="catalog">
+    <div class="product-card">
+      <div class="product-img">
+        <i class="ti ti-droplet" aria-hidden="true"></i>
+        <img src="imagenes/perfume-2.jpg" alt="Side Effect" width="180" height="180" >
+      </div>
+      <div class="product-info">
+        <div class="product-name">Side Effect</div>
+        <div class="product-ref">Initio Partums</div>
+        <div class="product-price">Clave U0009005</div>
+      </div>
+    </div>
+    <div class="product-card">
+      <div class="product-img">
+        <i class="ti ti-droplet" aria-hidden="true"></i>
+        <img src="imagenes/perfume-3.jpg" alt="Polo Ultra Blue" width="180" height="180" >
+      </div>
+      <div class="product-info">
+        <div class="product-name">Polo Ultra Blue</div>
+        <div class="product-ref">Ralph Lauren</div>
+        <div class="product-price">Clave C066009</div>
+      </div>
+    </div>
+    <div class="product-card">
+      <div class="product-img">
+        <i class="ti ti-droplet" aria-hidden="true"></i>
+        <img src="imagenes/perfume-4.jpg" alt="Y Live EDT Intense" width="180" height="180" >
+      </div>
+      <div class="product-info">
+        <div class="product-name">Y Live EDT Intense</div>
+        <div class="product-ref">Yves Saint Laurent</div>
+        <div class="product-price">Clave C081013</div>
+      </div>
+    </div>
+    <div class="product-card">
+      <div class="product-img">
+        <i class="ti ti-droplet" aria-hidden="true"></i>
+        <img src="imagenes/perfume-4.jpg" alt="Eros Flame" width="180" height="180" >
+      </div>
+      <div class="product-info">
+        <div class="product-name">Eros Flame</div>
+        <div class="product-ref">Versace</div>
+        <div class="product-price">Clave C077008</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RESEÑAS -->
+  <div class="section-label" style="background: var(--noir-soft); padding-top: 32px;">
+    <h2>Lo que dicen<br><em>nuestros clientes</em></h2>
+    <div class="line"></div>
+  </div>
+
+  <div class="reviews">
+    <div class="review-card">
+      <div class="review-stars">★★★★★</div>
+      <p class="review-text">"Buena opción para probar fragancias nuevas de uso diario, Kike te brinda una asesoría adecuada y completa de los aromas, precios justos."</p>
+      <div class="review-author">— Habib Manrique Ferráez</div>
+    </div>
+    <div class="review-card">
+      <div class="review-stars">★★★★★</div>
+      <p class="review-text">"Excelente calidad y envío rápido. La presentación es muy elegante, parece perfume de lujo de verdad."</p>
+      <div class="review-author">— Luis Miguel Godínez</div>
+    </div>
+    <div class="review-card">
+      <div class="review-stars">★★★★☆</div>
+      <p class="review-text">"Muy buena imitación del Chanel Bleu. No es idéntico pero es 90% igual a un precio increíble."</p>
+      <div class="review-author">— Sofía R., Mérida</div>
+    </div>
+  </div>
+
+  
+
+  <!-- WHATSAPP -->
+  <section class="contact-section">
+    <div class="contact-note">Pedidos</div>
+    <h2 class="contact-title">¿Encuentra tu<br>nueva fragancia?</h2>
+    <p class="contact-sub">Escríbenos por WhatsApp para<br>disponibilidad, envíos y precios especiales.</p>
+    <button class="wa-button">
+      <i class="ti ti-brand-whatsapp" aria-hidden="true"></i>
+      Escribir por WhatApp 
+    </button>
+  </section>
+
+
+
+
+  <div class="section-label" style="background: var(--noir-soft); padding-top: 32px;">
+<div class="contact-note">Consultas</div>
+    <h3 class="contact-title">¿Quieres saber más sobre<br>perfumes y fragancias? </h3>
+    <div class="line"></div>
+  <button class="hero-cta">Ver guía completa</button>
+  </div>
+
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-logo">Perfumes de Imitación KIKEF</div>
+    <div class="footer-links">
+      <a>Catálogo</a>
+      <a>Reseñas</a>
+      <a>Contacto</a>
+    </div>
+    <div class="footer-copy">© 2026 · Mérida, Yucatán · Medium Sociedad Creativa</div>
+  </footer>
+
+</div>
+</body>
+</html>
